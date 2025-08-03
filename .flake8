@@ -1,0 +1,29 @@
+[flake8]
+max-line-length = 120
+exclude =
+    .git,
+    __pycache__,
+    venv,
+    migrations,
+    *.pyc,
+    *.sqlite3,
+    .vscode,
+    .idea,
+    .env,
+    manage.py,
+    config_proyecto/asgi.py,
+    config_proyecto/wsgi.py,
+    config_proyecto/urls.py,
+    gestor_gastos/urls.py,
+    gestor_gastos/tests.py,
+    gestor_gastos/admin.py,
+    gestor_gastos/apps.py,
+    gestor_gastos/forms.py,
+    gestor_gastos/models.py,
+    gestor_gastos/views.py,
+    CLAUDE.md,
+    README.md,
+    Dockerfile,
+    docker-compose.yml,
+    requirements.txt
+ignore = E501, W503

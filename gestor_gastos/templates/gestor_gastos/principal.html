@@ -1,0 +1,30 @@
+{% extends 'gestor_gastos/base.html' %} {% block content %} 
+{% if mensaje_bienvenida %}
+<p class="mensaje-bienvenida">{{ mensaje_bienvenida }}</p>
+{% endif %}
+
+<section class="seccion-ingreso-rapido">
+  <h2>Registrar Gasto Rápido:</h2>
+  <div class="contenedor-botones-categoria">
+    {% for categoria in categorias %}
+        <a href="{% url 'registrar_gasto' categoria_id=categoria.id %}" class="boton-categoria">
+            <span>
+                {% if categoria.nombre == "Gasto Hormiga" %}🐜
+                {% elif categoria.nombre == "Transporte" %}🚌
+                {% elif categoria.nombre == "Cuentas Fijas Mensuales" %}🧾
+                {% elif categoria.nombre == "Salud" %}🧑‍⚕️
+                {% elif categoria.nombre == "Otros Gastos" %}
+                {% endif %}
+                {{ categoria.nombre }}
+            </span>
+        </a>
+    {% endfor %}
+</div>
+</section>
+
+<hr class="separador" />
+
+<section class="seccion-resumen">
+  <a href="{% url 'lista_gastos' %}" class="link-accion">Ver Resumen de Gastos</a>
+</section>
+{% endblock %}
