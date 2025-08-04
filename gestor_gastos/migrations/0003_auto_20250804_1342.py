@@ -4,14 +4,8 @@ from django.db import migrations
 def crear_categorias_iniciales(apps, schema_editor):
     Categoria = apps.get_model('gestor_gastos', 'Categoria')
     categorias = [
-        'Alimentación',
-        'Transporte', 
-        'Entretenimiento',
-        'Servicios',
+        'Transporte',
         'Salud',
-        'Educación',
-        'Compras',
-        'Otros'
     ]
     
     for nombre_categoria in categorias:

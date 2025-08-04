@@ -2,15 +2,25 @@
 
 from django.db import migrations
 
-def eliminar_categoria_otros_gastos(apps, schema_editor):
-    Categoria = apps.get_model('gestor_gastos', 'Categoria')
-    # Usamos filter().delete() para no fallar si la categoría no existe
-    Categoria.objects.filter(nombre='Otros Gastos').delete()
+CATEGORIAS_A_ELIMINAR = [
+    'Alimentación',
+    'Compras',
+    'Educación',
+    'Entretenimiento',
+    'Otros Servicios',
+    'Otros Gastos',
+    'Otros', # De la migración 0003
+    'Servicios', # De la migración 0003
+]
 
-def anadir_categoria_otros_gastos(apps, schema_editor):
+def eliminar_categorias_no_deseadas(apps, schema_editor):
     Categoria = apps.get_model('gestor_gastos', 'Categoria')
-    # Usamos get_or_create para no duplicar si la categoría ya existe
-    Categoria.objects.get_or_create(nombre='Otros Gastos')
+    Categoria.objects.filter(nombre__in=CATEGORIAS_A_ELIMINAR).delete()
+
+def anadir_categorias_no_deseadas(apps, schema_editor):
+    Categoria = apps.get_model('gestor_gastos', 'Categoria')
+    for nombre in CATEGORIAS_A_ELIMINAR:
+        Categoria.objects.get_or_create(nombre=nombre)
 
 class Migration(migrations.Migration):
 
@@ -19,5 +29,5 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.RunPython(eliminar_categoria_otros_gastos, reverse_code=anadir_categoria_otros_gastos),
+        migrations.RunPython(eliminar_categorias_no_deseadas, reverse_code=anadir_categorias_no_deseadas),
     ]
