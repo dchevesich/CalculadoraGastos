@@ -12,7 +12,6 @@ def crear_categorias_padrao(apps, schema_editor):
         {'nombre': 'Transporte'},
         {'nombre': 'Cuentas Fijas Mensuales'},
         {'nombre': 'Salud'},
-        {'nombre': 'Otros Gastos'},
     ]
 
     # Recorremos la lista y creamos cada categoría si no existe ya
