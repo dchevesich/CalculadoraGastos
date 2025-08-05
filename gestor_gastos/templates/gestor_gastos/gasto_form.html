@@ -3,28 +3,54 @@
 {% block title %}Registrar Gasto{% endblock %}
 
 {% block content %}
-    <div class="formulario-gasto-wrapper"> {# Contenedor extra para centrar el formulario #}
+    <div class="formulario-gasto-wrapper">
         <h2>
             Registrar Nuevo Gasto en:
             <span class="categoria-titulo">{{ categoria.nombre }}</span>
         </h2>
 
-        <form method="post" class="form-gasto">
+        <form method="post" class="form-gasto" aria-label="Formulario para registrar un nuevo gasto">
             {% csrf_token %}
 
             <div class="form-group">
-                <label for="{{ form.monto.id_for_label }}">{{ form.monto.label }}:</label>
+                <label for="{{ form.monto.id_for_label }}">
+                    💵 {{ form.monto.label }}:
+                </label>
                 {{ form.monto }}
+                {% if form.monto.errors %}
+                    <div class="field-errors" role="alert" aria-live="polite">
+                        {% for error in form.monto.errors %}
+                            <p class="error-message">{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+                <small class="field-help">Ingresa el monto del gasto en pesos chilenos</small>
             </div>
 
             <div class="form-group">
-                <label for="{{ form.descripcion.id_for_label }}">{{ form.descripcion.label }}:</label>
+                <label for="{{ form.descripcion.id_for_label }}">
+                    📝 {{ form.descripcion.label }}:
+                </label>
                 {{ form.descripcion }}
+                {% if form.descripcion.errors %}
+                    <div class="field-errors" role="alert" aria-live="polite">
+                        {% for error in form.descripcion.errors %}
+                            <p class="error-message">{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+                <small class="field-help">Describe brevemente en qué consistió este gasto (opcional)</small>
             </div>
 
-            <div class="form-actions"> {# Contenedor para agrupar y estilizar los botones #}
-                <button type="submit" class="boton-submit">Guardar Gasto</button>
-                <a href="{% url 'principal_gastos' %}" class="link-cancelar">Cancelar</a>
+            <div class="form-actions">
+                <button type="submit" class="boton-submit" aria-label="Guardar el gasto registrado">
+                    Guardar Gasto
+                </button>
+                <a href="{% url 'principal_gastos' %}" 
+                   class="link-cancelar"
+                   aria-label="Cancelar y volver a la página principal">
+                    Cancelar
+                </a>
             </div>
         </form>
     </div>

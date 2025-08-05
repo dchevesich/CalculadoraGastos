@@ -4,31 +4,51 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Calculadora de gastos personal - Gestiona y controla tus finanzas de manera fácil y eficiente">
     <title>{% block title %}Calculadora de Gastos{% endblock %}</title>
+    
+    <!-- Estilos principales -->
     <link rel="stylesheet" href="{% static 'gestor_gastos/css/styles.css' %}">
+    
+    <!-- Meta tags para PWA -->
+    <meta name="theme-color" content="#667eea">
+    <meta name="apple-mobile-web-app-capable" content="yes">
 </head>
 <body>
+    <header class="site-header" role="banner">
+        <h1>
+            <a href="{% url 'principal_gastos' %}" 
+               aria-label="Ir a la página principal">
+                Mi Calculadora de Gastos
+            </a>
+        </h1>
+        <nav class="main-nav" role="navigation">
+            <a href="{% url 'lista_gastos' %}">
+                Ver Resumen
+            </a>
+        </nav>
+    </header>
 
-    <header class="site-header">
-    <h1><a href="{% url 'principal_gastos' %}" style="color: white; text-decoration: none;">Mi Calculadora de Gastos</a></h1>
-    <nav class="main-nav">
-        <a href="{% url 'lista_gastos' %}">Ver Resumen</a>
-    </nav>
-</header>
-
-    <main class="container">
+    <main class="container" role="main">
         {% block content %}
         {% endblock %}
     </main>
 
-    <footer class="site-footer">
-        <p>&copy; {% now "Y" %} Mi Proyecto de Gastos</p>
+    <footer class="site-footer" role="contentinfo">
+        <p>&copy; {% now "Y" %} Mi Proyecto de Gastos - 
+           <a href="https://github.com/dchevesich" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              style="color: inherit; text-decoration: underline;">
+              Danko Chevesich
+           </a>
+        </p>
     </footer>
-     {% block scripts %}
+    
+    <!-- JavaScript principal -->
+    <script src="{% static 'gestor_gastos/js/app.js' %}"></script>
+    
+    {% block scripts %}
     {% endblock %}
-
-    
-    
-
 </body>
 </html>

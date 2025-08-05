@@ -1,30 +1,41 @@
-{% extends 'gestor_gastos/base.html' %} {% block content %} 
+{% extends 'gestor_gastos/base.html' %} 
+
+{% block title %}Inicio - Calculadora de Gastos{% endblock %}
+
+{% block content %} 
 {% if mensaje_bienvenida %}
-<p class="mensaje-bienvenida">{{ mensaje_bienvenida }}</p>
+<section class="mensaje-bienvenida" role="banner" aria-label="Mensaje de bienvenida">
+    <p>{{ mensaje_bienvenida }}</p>
+</section>
 {% endif %}
 
-<section class="seccion-ingreso-rapido">
-  <h2>Registrar Gasto Rápido:</h2>
-  <div class="contenedor-botones-categoria">
-    {% for categoria in categorias %}
-        <a href="{% url 'registrar_gasto' categoria_id=categoria.id %}" class="boton-categoria">
-            <span>
-                {% if categoria.nombre == "Gasto Hormiga" %}🐜
-                {% elif categoria.nombre == "Transporte" %}🚌
-                {% elif categoria.nombre == "Cuentas Fijas Mensuales" %}🧾
-                {% elif categoria.nombre == "Salud" %}🧑‍⚕️
-                {% elif categoria.nombre == "Otros Gastos" %}
-                {% endif %}
-                {{ categoria.nombre }}
-            </span>
-        </a>
-    {% endfor %}
-</div>
+<section class="seccion-ingreso-rapido" aria-labelledby="titulo-registro-rapido">
+    <h2 id="titulo-registro-rapido">Registrar Gasto Rápido</h2>
+    <div class="contenedor-botones-categoria" role="list" aria-label="Categorías de gastos disponibles">
+        {% for categoria in categorias %}
+            <a href="{% url 'registrar_gasto' categoria_id=categoria.id %}" 
+               class="boton-categoria"
+               role="listitem"
+               aria-label="Registrar gasto en categoría {{ categoria.nombre }}"
+               title="Haz clic para registrar un gasto en {{ categoria.nombre }}">
+                <span>{{ categoria.nombre }}</span>
+            </a>
+        {% empty %}
+            <div class="no-categorias" role="alert">
+                <p>No hay categorías disponibles en este momento.</p>
+            </div>
+        {% endfor %}
+    </div>
 </section>
 
-<hr class="separador" />
+<hr class="separador" aria-hidden="true" />
 
-<section class="seccion-resumen">
-  <a href="{% url 'lista_gastos' %}" class="link-accion">Ver Resumen de Gastos</a>
+<section class="seccion-resumen" aria-labelledby="titulo-resumen">
+    <h2 id="titulo-resumen" class="sr-only">Sección de resumen</h2>
+    <a href="{% url 'lista_gastos' %}" 
+       class="link-accion"
+       aria-label="Ver resumen completo de todos los gastos registrados">
+        Ver Resumen de Gastos
+    </a>
 </section>
 {% endblock %}
